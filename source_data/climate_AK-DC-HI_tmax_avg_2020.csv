@@ -1,0 +1,41 @@
+February 2020 - January 2021 Alaska County Average Temperature
+Units: Degrees Fahrenheit
+Missing: -99, Rank out of 96 Years
+Notes: Hawaii data averaged from annual high temp averages taken for the cities here 
+       (excluding Hawaii Nat'l Park, Haleakala, and Mountain View): 
+       https://www.usclimatedata.com/climate/hawaii/united-states/3181
+"Location ID","Location","Value","Rank","Anomaly (1925-2000 base period)","1925-2000 Mean"
+AK-013,"Aleutians East Borough",39.5,87,2.8,36.7
+AK-016,"Aleutians West Census Area",39.3,83,1.4,37.9
+AK-020,"Anchorage Municipality",33.6,77,2.1,31.5
+AK-050,"Bethel Census Area",33.0,84,3.9,29.1
+AK-060,"Bristol Bay Borough",37.6,83,3.3,34.3
+AK-068,"Denali Borough",27.8,80,2.5,25.3
+AK-070,"Dillingham Census Area",35.8,86,4.0,31.8
+AK-090,"Fairbanks North Star Borough",28.2,67,1.7,26.5
+AK-100,"Haines Borough",34.4,71,1.3,33.1
+AK-105,"Hoonah-Angoon Census Area",37.7,77,1.4,36.3
+AK-110,"Juneau City and Borough",34.5,72,1.1,33.4
+AK-122,"Kenai Peninsula Borough",35.2,87,3.0,32.2
+AK-130,"Ketchikan Gateway Borough",40.5,63,0.7,39.8
+AK-150,"Kodiak Island Borough",39.7,89,3.2,36.5
+AK-158,"Kusilvak Census Area",31.8,85,3.7,28.1
+AK-164,"Lake and Peninsula Borough",37.2,86,3.3,33.9
+AK-170,"Matanuska-Susitna Borough",30.3,81,2.4,27.9
+AK-180,"Nome Census Area",27.7,86,4.2,23.5
+AK-185,"North Slope Borough",16.9,84,3.6,13.3
+AK-188,"Northwest Arctic Borough",24.5,86,3.9,20.6
+AK-195,"Petersburg Borough",37.0,74,1.2,35.8
+AK-198,"Prince of Wales-Hyder Census Area",43.2,61,0.9,42.3
+AK-220,"Sitka City and Borough",41.1,82,1.7,39.4
+AK-230,"Skagway Municipality",31.5,74,1.5,30
+AK-240,"Southeast Fairbanks Census Area",25.1,62,1.4,23.7
+AK-261,"Valdez-Cordova Census Area",28.0,76,1.9,26.1
+AK-275,"Wrangell City and Borough",40.2,65,0.9,39.3
+AK-282,"Yakutat City and Borough",34.0,82,2.0,32
+AK-290,"Yukon-Koyukuk Census Area",26.9,85,3.1,23.8
+DC-001,"Washington, D.C.",67.8,118,2.5,65.3
+15001,"Hawaii County",81,0,0,0
+15003,"Honolulu County",81,0,0,0
+15007,"Kauai County",81,0,0,0
+15009,"Maui County",81,0,0,0

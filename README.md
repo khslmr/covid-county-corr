@@ -18,7 +18,7 @@ Another interesting possibility is the intersection between politics and COVID-1
 
 The data for this project come from a number of different sources, with varying levels of detail.  In some cases (e.g., unemployment rates, recorded temperatures) I had to consolidate the time axis in order to match the other non-temporal data.  In other cases (e.g., population and education) the data were subdivided into more racial and/or age categories than were helpful.  Hence, the choice of data collected here can only be described as "ad hoc" as there is no particular reason why any features have been included or excluded.  Indeed, I may add new features that seem relevant to future versions of the dataset.
 
-The full dataset includes 28 features plus 4 fields describing COVID-19 cases and 4 more for COVID-19 deaths, with one row for each of 3141 counties, cities and their equivalents across the U.S.  Documentation about specific data sources can be found in the commented lines in the `county_covid_and_demo_data.py` file, which also provides the code used to compile the data into one file.  The `covid19_plus.csv` file contains the cleaned dataset.
+The full dataset includes 28 features plus 4 fields describing COVID-19 cases and 4 more for COVID-19 deaths, with one row for each of 3141 counties, cities and their equivalents across the U.S.  Documentation about specific data sources can be found in the commented lines in the `clean_and_concat.py` file, which also provides the code used to compile the data into one file.  The `county_covid_and_demo_data.csv` file contains the cleaned dataset.
 
 
 ### Models
