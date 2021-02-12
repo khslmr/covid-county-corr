@@ -60,11 +60,18 @@ state_abbrs, state_names = zip(*[(s[:2], s[3:]) for s in states])
 ########################
 # Population data
 ########################
+#
+# The population dataset was downloaded from the U.S. Census Bureau at:
+#-->https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/counties/asrh/cc-est2019-alldata.csv
+# and the file layout is described by this companion PDF:
+#-->https://www2.census.gov/programs-surveys/popest/technical-documentation/file-layouts/2010-2019/cc-est2019-alldata.pdf
+
 
 selected_vars = ['CTYNAME', 'STNAME', 'YEAR', 'AGEGRP',
                  'TOT_POP', 'WA_MALE', 'WA_FEMALE',
                  'BAC_MALE', 'BAC_FEMALE', 'AAC_MALE',
                  'AAC_FEMALE', 'H_MALE', 'H_FEMALE']
+#converts age group IDs into actual ages (the middle of each 5-year interval)
 age_dict = {0:0, 1:2.5, 2:7.5, 3:12.5, 4:17.5, 5:22.5, 6:27.5, 7:32.5, 
             8:37.5, 9:42.5, 10:47.5, 11:52.5, 12:57.5, 13:62.5, 14:67.5, 
             15:72.5, 16:77.5, 17:82.5, 18:90}
@@ -111,6 +118,9 @@ del popl
 ########################
 # FIPS codes
 ########################
+#
+# State and county FIPS codes were downloaded from the U.S. Census Bureau at:
+#-->https://www2.census.gov/geo/docs/reference/codes/files/national_county.txt
 
 #read in the data file that maps counties/cities to their FIPS codes
 fips = pd.read_csv('source_data/FIPS.csv', dtype=str)[['state', 'state_code', 'county_code', 'county']]
@@ -135,6 +145,11 @@ data.drop(index=15005, inplace=True)
 ########################
 # Land area/Popl density
 ########################
+#
+# Land area data was downloaded from the U.S. Census Bureau at:
+#-->https://www2.census.gov/library/publications/2011/compendia/usa-counties/excel/LND01.xls
+# along with a companion PDF describing the column names:
+#-->https://www.census.gov/library/publications/2011/compendia/usa-counties-2011/file-layout.html
 
 #read in land area data; 'LND110210D' is the most recent and relevant column to use
 lnd = pd.read_excel('source_data/LandArea.xls', usecols=['STCOU', 'LND110210D'])
@@ -150,6 +165,10 @@ data['popl_density'] = np.log10(data['popl'] / data['land_area'])
 ########################
 # Unemployment data
 ########################
+#
+# County-level employment data for the latest 14 months (ending in Nov-2020) was
+# obtained from the Bureau of Labor Statistics at:
+#-->https://www.bls.gov/lau/tables.htm
 
 #read in the employment data
 empl = pd.read_csv('source_data/employment_data_10-19_thru_11-2020_edited_header.txt', delimiter='|',
@@ -181,6 +200,9 @@ data = data.join(unempl[['unempl_rate', 'unempl_rate_chng']])
 ########################
 # Income data
 ########################
+#
+# Income data was retrieved for the "US and All States and Counties" from the U.S. Census Bureau at:
+#-->https://www.census.gov/data/datasets/2019/demo/saipe/2019-state-and-county.html
 
 #read income data and rename columns
 incm = pd.read_excel('source_data/IncomePoverty.xls', header=3, dtype=str,
@@ -202,6 +224,9 @@ data['prcnt_poverty'] = pd.to_numeric(data.pop('n_poverty'), errors='coerce') / 
 ########################
 # GDP data
 ########################
+#
+# Financial data was downloaded from the Bureau of Economic Analysis at:
+#-->https://apps.bea.gov/regional/downloadzip.cfm
 
 #read in the gdp dataset and change data to float type
 gdp = pd.read_csv('source_data/GDP_2001_2019.csv', encoding='latin-1', skipfooter=4, 
@@ -236,7 +261,6 @@ gdp['county'].loc[gdp['county'].str.contains(r',')] += ' city'
 gdp['county'] = gdp['county'].str.split(', ')
 gdp = gdp.explode('county')
 gdp['county'].loc[~gdp['county'].str.contains(r'city|County|Borough|Area|Parish|Municipality')] += ' County'
-# gdp = gdp[ gdp['state'].str.contains(r'\*') ]
 
 #corrects the FIPS codes for the newly separated county/city groups
 tdata = data[['state', 'county']].reset_index()
@@ -258,6 +282,10 @@ data['per_capita_gdp'] = data.pop('gdp') / data['popl']
 ########################
 # Education data
 ########################
+#
+# Education data from the U.S. Census' American Communities Survey (ACS) was
+# downloaded at:
+#-->https://www.census.gov/programs-surveys/acs/
 
 edu = pd.read_csv('source_data/ACSST5Y2019.S1501_metadata_2021-01-22T053218.csv', skiprows=[1])
 edu[['meas', 'metric', 'category', 'class', 'info']] = edu['id'].str.split('!!', expand=True)
@@ -286,6 +314,11 @@ data = data.join(edu[['high_sch_grad_rate', 'college_grad_rate']])
 ########################
 # Political gov. data
 ########################
+#
+# Data categorizing the political dynamic of state legislatures and governorships 
+# was downloaded as a PDF from:
+#-->https://www.ncsl.org/Portals/1/Documents/Elections/Legis_Control_2020_April%201.pdf
+#and transcribed (using copy and paste) to an Excel document by me.
 
 legis = pd.read_excel('source_data/US_Legis_Control_2020_April 1.xls')
 legis.at[53, ['legis_control', 'state_control']] = ['null', 'null']
@@ -302,6 +335,10 @@ data = data.join(legis, on='state')
 ########################
 # Election data
 ########################
+#
+# An archived copy of the NY Times election results for the 2020 general election 
+# presidential race were downloaded at:
+#-->https://web.archive.org/web/20210130221417/https://static01.nyt.com/elections-assets/2020/data/api/2020-11-03/national-map-page/national/president.json
 
 def get_election_margin(race):
     if race['race_id'][2:6] != '-G-P':
@@ -345,6 +382,9 @@ data['biden_margin_2020'].iloc[na_idx] = 0
 ########################
 # Regional IDs
 ########################
+#
+# Regional IDs were chosen by myself roughly by grouping the 50 states into 
+# roughly similar climate and urbanization bins.
 
 def get_state_region(abbr):
     if abbr in ('AK', 'CA', 'HI', 'OR', 'WA'):
@@ -371,6 +411,14 @@ data['region'] = data['state'].apply(get_state_region)
 ########################
 # Temperature data
 ########################
+#
+# Maximum temperature data was downloaded from the NOAA for the contiguous 48 states
+# and separately for Alaska and Washington D.C. from
+#-->https://www.ncdc.noaa.gov/cag/county/mapping
+# and for Hawaii, data was averaged from annual high temp averages taken for the 
+# cities included at the following url (excluding Hawaii Nat'l Park, Haleakala, and 
+# Mountain View): 
+#-->https://www.usclimatedata.com/climate/hawaii/united-states/3181
 
 tmax_state_codes = """01	AL
 02	AZ
@@ -464,6 +512,9 @@ data['tmax_avg'] = data['tmax_avg'].fillna(state_mean_temps)
 ########################
 # COVID 19 data
 ########################
+#
+# County-level COVID-19 case and death statistics were downloaded from usafacts.org:
+#-->https://usafacts.org/visualizations/coronavirus-covid-19-spread-map/
 
 #read in the COVID 19 case and death data and join the two datasets
 c19_deaths = pd.read_csv('source_data/covid_deaths_usafacts.csv').dropna().set_index(['State','County Name'])
