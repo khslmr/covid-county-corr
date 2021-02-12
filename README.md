@@ -23,4 +23,4 @@ The full dataset includes 28 features plus 4 fields describing COVID-19 cases an
 
 ### Models
 
-This is a work in progress.  I intend to collect my modeling explorations (as they come) into the `/models` folder as Jupyter notebooks, which Github will automatically render them for you.
+This is a work in progress.  I intend to collect my modeling explorations (as they come) into the `/models` folder as Jupyter notebooks, which Github will automatically render for you.
