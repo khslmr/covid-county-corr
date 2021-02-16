@@ -1,6 +1,6 @@
 ## COVID-19 County Correlations
 
-A casual project that searches for a relation between COVID-19 statistics (cases and deaths) and a wide array of county demographic, political, and climate data.  
+A casual data fusion and analysis project that searches for a relation between COVID-19 statistics (cases and deaths) and a wide array of county demographic, political, and climate data.  
 
 *Disclaimer: I am not an expert in epidemiology and you should not interpret any analysis here as medical advice!*
 
